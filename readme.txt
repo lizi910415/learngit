@@ -101,3 +101,34 @@ git merge --no-ff -m "merge with no-ff" dev
 git log --graph --pretty=oneline --abbrev-commit   合并后，我们用git log看看分支历史：
 
 合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+
+当你在开发过程中遇到其他地方有bug需要紧急修复，而你当前的进度又未完成不能提交
+
+Git还提供了一个stash功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：
+
+用git status查看工作区，就是干净的（除非有没有被Git管理的文件），因此可以放心地创建分支来修复bug。
+
+工作区是干净的，刚才的工作现场存到哪去了？用git stash list命令看看：
+
+工作现场还在，Git把stash内容存在某个地方了，但是需要恢复一下，有两个办法：
+
+一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+
+另一种方式是用git stash pop，恢复的同时把stash内容也删了：
+
+你可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令
+
+git stash apply stash@{0}
+
+在master分支上修复了bug后，我们要想一想，dev分支是早期从master分支分出来的，所以，这个bug其实在当前dev分支上也存在。
+
+为了方便操作，Git专门提供了一个cherry-pick命令，让我们能复制一个特定的提交到当前分支
+
+git cherry-pick COMMITID
+
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+
+当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场；
+
+在master分支上修复的bug，想要合并到当前dev分支，可以用git cherry-pick <commit>命令，把bug提交的修改“复制”到当前分支，避免重复劳动。
+
