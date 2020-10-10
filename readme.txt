@@ -50,3 +50,27 @@ git checkout其实是用版本库里的版本替换工作区的版本，无论�
 关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
 
 此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+
+git checkout -b dev       git switch -c dev   创建并切换到最新分支
+
+git branch dev  创建新分支
+
+git checkout dev      git switch dev 切换分支
+
+git branch -d dev  删除分支
+
+git  merge dev 将用于合并指定分支到当前分支
+
+Git鼓励大量使用分支：
+
+查看分支：git branch
+
+创建分支：git branch <name>
+
+切换分支：git checkout <name>或者git switch <name>
+
+创建+切换分支：git checkout -b <name>或者git switch -c <name>
+
+合并某分支到当前分支：git merge <name>
+
+删除分支：git branch -d <name>
